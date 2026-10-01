@@ -165,7 +165,7 @@ proptest! {
     fn tick_brackets_prices_inside_a_bin(t in MIN_TICK..MAX_TICK, frac in any::<u64>()) {
         // A price strictly inside bin t: sqrtP(t) + width · frac / 2^64.
         let lo = sqrt(t);
-        let p = lo + ((sqrt(t + 1) - lo) * U256::from(frac) >> 64u32);
+        let p = lo + (((sqrt(t + 1) - lo) * U256::from(frac)) >> 64u32);
         prop_assert_eq!(ticks::tick_at_sqrt_price(p), Ok(t));
     }
 
